@@ -10,26 +10,34 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<!-- <property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver"></property>
+		<!-- <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> 
+			<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"></property> -->
+		<property name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@localhost:1521:XE"></property> -->
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-	
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+
 		<property name="username" value="pj"></property>
 		<property name="password" value="1234"></property>
 	</bean>
-	
+
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations"
+			value="classpath:com/spring_management/mapper/*Mapper.xml" />
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml"></property>
+
 	</bean>
-	
-	<mybatis-spring:scan base-package = "com.spring_management.mapper"/>
-	<context:component-scan base-package = "com.spring_management.*"></context:component-scan>
+
+	<mybatis-spring:scan
+		base-package="com.spring_management.mapper" />
+	<context:component-scan
+		base-package="com.spring_management.*"></context:component-scan>
 </beans>
