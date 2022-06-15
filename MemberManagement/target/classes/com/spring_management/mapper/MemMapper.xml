@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring_management.mapper.MemMapper">
+
+	<select id="getList" resultType="MemVo">
+		select * from tbl_management
+	</select>
+
+	<!-- <insert id="enrollMem" > insert into tbl_management(bno,name,tel,book_date,type_curl,type_length,pic) 
+		values(seq_board.nextval,#{name},#{tel},#{book_date},#{type_curl},#{type_length},#{pic}) 
+		</insert> -->
+	<insert id="enrollMem">
+		insert into tbl_management(bno,name,tel)
+		values(seq_management.nextval,#{name},#{tel})
+	</insert>
+
+	<select id="getMem" resultType="MemVo">
+		select * from tbl_management where bno = #{bno}
+	</select>
+	
+	<delete id="delMem">
+	delete from tbl_management where bno = #{bno}
+	</delete>
+	
+	<update id="updateMem">
+		update tbl_management
+		set name = #{name},
+		tel = #{tel}
+		where bno = #{bno}
+		
+	</update>
+</mapper>

@@ -24,7 +24,7 @@ public class DataSourceTests {
 	private DataSource dataSource;
 
 	@Test
-	public void testConnection() {
+	public void testConnection() { //spring 5.0.7 버전 ! 
 
 		try(Connection con = dataSource.getConnection()){
 			log.info(con);
